@@ -197,19 +197,19 @@ export function DashboardView() {
       </div>
 
       <div className="flex flex-wrap gap-2">
-        <Link href="/patients" className={cn(buttonVariants())}>
+        <Link href="/portal/patients" className={cn(buttonVariants())}>
           <ClipboardList className="mr-2 size-4" />
           Open EMR
         </Link>
-        <Link href="/pharmacy" className={cn(buttonVariants({ variant: "outline" }))}>
+        <Link href="/portal/pharmacy" className={cn(buttonVariants({ variant: "outline" }))}>
           <Pill className="mr-2 size-4" />
           Pharmacy queue
         </Link>
-        <Link href="/billing" className={cn(buttonVariants({ variant: "outline" }))}>
+        <Link href="/portal/billing" className={cn(buttonVariants({ variant: "outline" }))}>
           <Receipt className="mr-2 size-4" />
           Billing ledger
         </Link>
-        <Link href="/payroll" className={cn(buttonVariants({ variant: "outline" }))}>
+        <Link href="/portal/payroll" className={cn(buttonVariants({ variant: "outline" }))}>
           <Wallet className="mr-2 size-4" />
           Payroll
         </Link>

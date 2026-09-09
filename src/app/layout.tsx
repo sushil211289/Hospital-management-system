@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Meridian General Hospital HIS",
+  title: "Meridian General Hospital",
   description:
-    "Hospital information system for EMR, pharmacy, billing, and payroll.",
+    "Official website and staff information system for Meridian General Hospital.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

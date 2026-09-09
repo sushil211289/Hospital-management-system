@@ -22,11 +22,11 @@ import { useHospital } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 const NAV: { href: string; label: string; icon: typeof LayoutDashboard; module: ModuleKey }[] = [
-  { href: "/", label: "Command Center", icon: LayoutDashboard, module: "dashboard" },
-  { href: "/patients", label: "Patient Records", icon: ClipboardList, module: "patients" },
-  { href: "/pharmacy", label: "Pharmacy", icon: Pill, module: "pharmacy" },
-  { href: "/billing", label: "Billing", icon: Receipt, module: "billing" },
-  { href: "/payroll", label: "Payroll", icon: Wallet, module: "payroll" },
+  { href: "/portal", label: "Command Center", icon: LayoutDashboard, module: "dashboard" },
+  { href: "/portal/patients", label: "Patient Records", icon: ClipboardList, module: "patients" },
+  { href: "/portal/pharmacy", label: "Pharmacy", icon: Pill, module: "pharmacy" },
+  { href: "/portal/billing", label: "Billing", icon: Receipt, module: "billing" },
+  { href: "/portal/payroll", label: "Payroll", icon: Wallet, module: "payroll" },
 ];
 
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
@@ -122,9 +122,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </SheetContent>
             </Sheet>
             <div className="hidden text-sm text-muted-foreground sm:block">
-              Live census · mock FHIR store persisted locally
+              Staff HIS · mock ledger persisted locally
             </div>
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center gap-3">
+              <Link
+                href="/"
+                className="hidden text-sm text-primary hover:underline sm:block"
+              >
+                Hospital website
+              </Link>
               <RoleSwitcher />
             </div>
           </div>

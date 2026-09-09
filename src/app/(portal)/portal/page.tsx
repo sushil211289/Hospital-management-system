@@ -1,5 +1,5 @@
 import { DashboardView } from "@/components/dashboard-view";
 
-export default function HomePage() {
+export default function PortalHomePage() {
   return <DashboardView />;
 }
