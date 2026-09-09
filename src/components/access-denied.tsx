@@ -16,9 +16,8 @@ export function AccessDenied({ moduleLabel }: { moduleLabel: string }) {
         </CardTitle>
       </CardHeader>
       <CardContent className="text-sm text-muted-foreground">
-        The {ROLE_LABELS[state.role]} persona cannot open {moduleLabel}. Use the
-        role selector at the top of the screen to switch to Admin, or another
-        role with permission.
+        Your {ROLE_LABELS[state.role]} account cannot open {moduleLabel}. Sign out
+        and use a staff login that includes this module.
       </CardContent>
     </Card>
   );

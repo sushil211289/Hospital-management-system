@@ -13,11 +13,11 @@ import {
   Users,
   Wallet,
 } from "lucide-react";
-import { RoleSwitcher } from "@/components/role-switcher";
+import { SessionBadge } from "@/components/session-badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { HOSPITAL_NAME } from "@/lib/seed";
-import { canAccess, type ModuleKey } from "@/lib/permissions";
+import { canAccess, ROLE_LABELS, type ModuleKey } from "@/lib/permissions";
 import { useHospital } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
@@ -100,7 +100,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
           <div className="mt-1 flex items-center gap-2">
             <Users className="size-3.5" />
-            Session: {hydrated ? state.role : "…"}
+            Session: {hydrated ? ROLE_LABELS[state.role] : "…"}
           </div>
         </div>
       </aside>
@@ -131,7 +131,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               >
                 Hospital website
               </Link>
-              <RoleSwitcher />
+              <SessionBadge />
             </div>
           </div>
         </header>

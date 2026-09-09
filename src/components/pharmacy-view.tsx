@@ -18,11 +18,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { daysUntil, formatCurrency, formatDate } from "@/lib/format";
+import { useAuth } from "@/lib/auth-context";
 import { canAccess, canDispense } from "@/lib/permissions";
 import { useHospital } from "@/lib/store";
 
 export function PharmacyView() {
   const { state, hydrated, dispensePrescription } = useHospital();
+  const { user } = useAuth();
   const [query, setQuery] = useState("");
   const [rxQuery, setRxQuery] = useState("");
 
@@ -64,8 +66,7 @@ export function PharmacyView() {
   const low = state.medicines.filter((m) => m.stock < 50).length;
   const expiring = state.medicines.filter((m) => daysUntil(m.expiryDate) <= 45).length;
   const active = state.prescriptions.filter((p) => p.status === "Active").length;
-  const pharmacistName =
-    state.role === "pharmacist" ? "Pharm. David Park" : "Admin Dispense Desk";
+  const pharmacistName = user?.name ?? "Staff pharmacist";
 
   return (
     <div className="space-y-5">
@@ -190,7 +191,7 @@ export function PharmacyView() {
                       )}
                       {rx.status === "Active" && !canDispense(state.role) && (
                         <p className="text-xs text-muted-foreground">
-                          Switch to Pharmacist or Admin to dispense.
+                          Switch to a pharmacist or administrator account to dispense.
                         </p>
                       )}
                       {rx.status === "Dispensed" && (

@@ -77,7 +77,7 @@ export function DashboardView() {
             Operations command center
           </h1>
           <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
-            You are viewing the hospital as{" "}
+            You are signed in as{" "}
             <span className="font-medium text-foreground">
               {ROLE_LABELS[state.role]}
             </span>
