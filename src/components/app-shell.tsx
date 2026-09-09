@@ -122,7 +122,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </SheetContent>
             </Sheet>
             <div className="hidden text-sm text-muted-foreground sm:block">
-              Staff HIS · mock ledger persisted locally
+              Staff HIS · live PostgreSQL ledger
             </div>
             <div className="ml-auto flex items-center gap-3">
               <Link

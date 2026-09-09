@@ -2,19 +2,19 @@
 
 Public hospital website plus a staff clinical information system for Meridian General Hospital.
 
-The homepage is the official-looking public site (services, physicians, visiting hours, appointments). The staff HIS at `/portal` requires sign-in.
+The homepage is the public site. Staff HIS at `/portal` requires sign-in. Clinical data, users, and appointment requests persist in **PostgreSQL** (Prisma). The portal refreshes from the database every few seconds so inventory, prescriptions, and bills stay in sync.
 
 ## Public website
 
 - `/` — hospital homepage
 - `/physicians` — attending physician directory
-- `/contact` — appointment request form
+- `/contact` — appointment request (writes `AppointmentRequest` rows)
 
 ## Staff portal (`/login` → `/portal`)
 
-Unauthenticated visits to `/portal` redirect to `/login`. A successful sign-in sets an HTTP-only session cookie (8 hours) and loads modules for that account’s role.
+Unauthenticated visits to `/portal` redirect to `/login`. Sign-in checks `User` rows (bcrypt) and sets an HTTP-only session cookie (8 hours).
 
-Demo accounts (also listed on the sign-in page):
+Demo accounts (seeded):
 
 | Role | Email | Password |
 | --- | --- | --- |
@@ -22,20 +22,28 @@ Demo accounts (also listed on the sign-in page):
 | Doctor / Nurse | `p.nair@meridian.hospital` | `Meridian#Care24` |
 | Pharmacist | `d.park@meridian.hospital` | `Meridian#Rx24` |
 
-Interactive HIS for EMR, inpatient pharmacy, centralized billing, and payroll on one shared ledger.
+## Database
 
-Clinical data lives in the browser (`localStorage`). Use **Reset demo data** on the command center to restore the sample hospital. Session is separate from demo data.
+PostgreSQL schema is in `prisma/schema.prisma`: patients/allergies/vitals/consults, medicines, prescriptions, invoices/billing lines, staff/payslips, users, appointment requests.
 
-- Browse and search the patient directory, open a chart, and write e-prescriptions
-- Dispense medication: stock drops and a pharmacy line posts to the patient bill
-- Itemize room, consult, lab, and pharmacy charges; print invoices
-- Payroll by department with printable payslips
-- Sign out and sign in as another demo account to change roles
+```bash
+cp .env.example .env
+# Start Postgres (Docker) or use a hosted URL
+docker compose up -d
+npx prisma migrate deploy
+npx prisma db seed
+```
+
+Local default: `postgresql://meridian:meridian@127.0.0.1:5432/meridian_his`
+
+Admin **Reset demo data** re-seeds the database.
 
 ## Run locally
 
 ```bash
 npm install
+npx prisma migrate deploy
+npx prisma db seed
 npm run dev
 ```
 
@@ -43,4 +51,4 @@ Open [http://127.0.0.1:43147](http://127.0.0.1:43147).
 
 ## Stack
 
-Next.js (App Router), TypeScript, Tailwind CSS, and shadcn/ui.
+Next.js (App Router), TypeScript, Tailwind CSS, shadcn/ui, PostgreSQL, Prisma.

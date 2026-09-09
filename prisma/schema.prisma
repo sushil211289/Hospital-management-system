@@ -1,0 +1,293 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  clinical
+  pharmacist
+}
+
+enum Gender {
+  Female
+  Male
+  Other
+}
+
+enum BloodGroup {
+  A_POS
+  A_NEG
+  B_POS
+  B_NEG
+  AB_POS
+  AB_NEG
+  O_POS
+  O_NEG
+}
+
+enum RoomType {
+  GeneralWard
+  SemiPrivate
+  Private
+  ICU
+}
+
+enum PatientStatus {
+  Admitted
+  Outpatient
+  Discharged
+}
+
+enum AllergySeverity {
+  Mild
+  Moderate
+  Severe
+}
+
+enum PrescriptionStatus {
+  Active
+  Dispensed
+  Cancelled
+}
+
+enum PaymentStatus {
+  Pending
+  PartiallyPaid
+  Settled
+}
+
+enum Department {
+  Doctors
+  Nurses
+  Pharmacists
+  Admins
+}
+
+enum BillingCategory {
+  Room
+  Consultation
+  Lab
+  Pharmacy
+  Procedure
+}
+
+enum AppointmentStatus {
+  New
+  Contacted
+  Scheduled
+  Closed
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role
+  title        String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Patient {
+  id                  String        @id
+  mrn                 String        @unique
+  firstName           String
+  lastName            String
+  age                 Int
+  gender              Gender
+  bloodGroup          BloodGroup
+  contact             String
+  email               String
+  admittedAt          DateTime
+  roomType            RoomType
+  bed                 String
+  dailyRoomRate       Decimal       @db.Decimal(12, 2)
+  attendingPhysician  String
+  status              PatientStatus
+  diagnoses           String[]
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  allergies           Allergy[]
+  vitals              Vital[]
+  consultations       Consultation[]
+  prescriptions       Prescription[]
+  invoices            Invoice[]
+
+  @@index([lastName, firstName])
+  @@index([status])
+}
+
+model Allergy {
+  id        String          @id
+  patientId String
+  patient   Patient         @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  substance String
+  reaction  String
+  severity  AllergySeverity
+
+  @@index([patientId])
+}
+
+model Vital {
+  id         String   @id
+  patientId  String
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  recordedAt DateTime
+  systolic   Int
+  diastolic  Int
+  heartRate  Int
+  temperatureC Decimal @db.Decimal(4, 1)
+  spo2       Int
+  recordedBy String
+
+  @@index([patientId, recordedAt])
+}
+
+model Consultation {
+  id          String   @id
+  patientId   String
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  date        DateTime
+  clinician   String
+  department  String
+  diagnosis   String
+  notes       String
+
+  @@index([patientId, date])
+}
+
+model Medicine {
+  id           String             @id
+  name         String
+  genericName  String
+  strength     String
+  form         String
+  manufacturer String
+  batchNumber  String             @unique
+  expiryDate   DateTime           @db.Date
+  stock        Int
+  unitPrice    Decimal            @db.Decimal(12, 2)
+  location     String
+  updatedAt    DateTime           @updatedAt
+  items        PrescriptionItem[]
+
+  @@index([name])
+  @@index([stock])
+  @@index([expiryDate])
+}
+
+model Prescription {
+  id           String             @id
+  patientId    String
+  patient      Patient            @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  prescribedBy String
+  prescribedAt DateTime
+  status       PrescriptionStatus
+  notes        String
+  dispensedAt  DateTime?
+  dispensedBy  String?
+  items        PrescriptionItem[]
+  billingLines BillingLine[]
+
+  @@index([patientId])
+  @@index([status])
+}
+
+model PrescriptionItem {
+  id             String       @id @default(cuid())
+  prescriptionId String
+  prescription   Prescription @relation(fields: [prescriptionId], references: [id], onDelete: Cascade)
+  medicineId     String
+  medicine       Medicine     @relation(fields: [medicineId], references: [id], onDelete: Restrict)
+  medicineName   String
+  dosage         String
+  frequency      String
+  quantity       Int
+  unitPrice      Decimal      @db.Decimal(12, 2)
+
+  @@index([prescriptionId])
+}
+
+model Invoice {
+  id                        String        @id
+  patientId                 String
+  patient                   Patient       @relation(fields: [patientId], references: [id], onDelete: Restrict)
+  discountPercent           Decimal       @db.Decimal(5, 2)
+  taxPercent                Decimal       @db.Decimal(5, 2)
+  insuranceProvider         String
+  insuranceCoveragePercent  Decimal       @db.Decimal(5, 2)
+  deductible                Decimal       @db.Decimal(12, 2)
+  copay                     Decimal       @db.Decimal(12, 2)
+  amountPaid                Decimal       @db.Decimal(12, 2)
+  paymentStatus             PaymentStatus
+  updatedAt                 DateTime      @updatedAt
+  lineItems                 BillingLine[]
+
+  @@index([patientId])
+  @@index([paymentStatus])
+}
+
+model BillingLine {
+  id                    String        @id
+  invoiceId             String
+  invoice               Invoice       @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  category              BillingCategory
+  description           String
+  quantity              Int
+  unitPrice             Decimal       @db.Decimal(12, 2)
+  createdAt             DateTime
+  linkedPrescriptionId  String?
+  linkedPrescription    Prescription? @relation(fields: [linkedPrescriptionId], references: [id], onDelete: SetNull)
+
+  @@index([invoiceId])
+}
+
+model StaffMember {
+  id                        String     @id
+  employeeId                String     @unique
+  name                      String
+  department                Department
+  title                     String
+  email                     String     @unique
+  hiredAt                   DateTime   @db.Date
+  baseSalary                Decimal    @db.Decimal(12, 2)
+  overtimeRate              Decimal    @db.Decimal(12, 2)
+  nightShiftBonus           Decimal    @db.Decimal(12, 2)
+  healthPremium             Decimal    @db.Decimal(12, 2)
+  unpaidLeavePenaltyPerDay  Decimal    @db.Decimal(12, 2)
+  payslips                  Payslip[]
+
+  @@index([department])
+}
+
+model Payslip {
+  id              String      @id
+  staffId         String
+  staff           StaffMember @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  period          String
+  overtimeHours   Int
+  nightShifts     Int
+  unpaidLeaveDays Int
+  taxPercent      Decimal     @db.Decimal(5, 2)
+  paidOn          DateTime    @db.Date
+
+  @@unique([staffId, period])
+  @@index([period])
+}
+
+model AppointmentRequest {
+  id        String             @id @default(cuid())
+  name      String
+  phone     String
+  reason    String
+  status    AppointmentStatus  @default(New)
+  createdAt DateTime           @default(now())
+
+  @@index([status, createdAt])
+}

@@ -176,8 +176,8 @@ export function PharmacyView() {
                       )}
                       {rx.status === "Active" && canDispense(state.role) && (
                         <Button
-                          onClick={() => {
-                            const error = dispensePrescription(rx.id, pharmacistName);
+                          onClick={async () => {
+                            const error = await dispensePrescription(rx.id, pharmacistName);
                             if (error) toast.error(error);
                             else
                               toast.success(

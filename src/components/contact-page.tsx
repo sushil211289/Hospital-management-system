@@ -46,10 +46,25 @@ export function ContactPage() {
       </div>
       <form
         className="space-y-4 rounded-xl border bg-white p-6 shadow-sm"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
+          const form = e.currentTarget;
+          const payload = {
+            name: (form.elements.namedItem("name") as HTMLInputElement).value,
+            phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+            reason: (form.elements.namedItem("reason") as HTMLTextAreaElement).value,
+          };
+          const res = await fetch("/api/appointments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) {
+            toast.error("Could not save the request. Try again.");
+            return;
+          }
           setSent(true);
-          toast.success("Appointment request received. Scheduling will call you.");
+          toast.success("Appointment request saved to the hospital database.");
         }}
       >
         {sent ? (

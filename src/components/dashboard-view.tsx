@@ -81,11 +81,11 @@ export function DashboardView() {
             <span className="font-medium text-foreground">
               {ROLE_LABELS[state.role]}
             </span>
-            . Census, pharmacy risk, and revenue all share one ledger — dispensing
-            a medication updates inventory and the patient bill immediately.
+            . Census, pharmacy risk, and revenue all share one PostgreSQL ledger —
+            dispensing a medication updates inventory and the patient bill immediately.
           </p>
         </div>
-        <Button variant="outline" onClick={resetDemo}>
+        <Button variant="outline" onClick={() => void resetDemo()}>
           Reset demo data
         </Button>
       </div>

@@ -290,8 +290,8 @@ export function PatientsView() {
           open={rxOpen}
           onOpenChange={setRxOpen}
           patient={liveSelected}
-          onSubmit={(items, notes, prescribedBy) => {
-            addPrescription({
+          onSubmit={async (items, notes, prescribedBy) => {
+            await addPrescription({
               patientId: liveSelected.id,
               prescribedBy,
               notes,
@@ -326,7 +326,7 @@ function NewRxDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
   patient: Patient;
-  onSubmit: (items: PrescriptionItem[], notes: string, prescribedBy: string) => void;
+  onSubmit: (items: PrescriptionItem[], notes: string, prescribedBy: string) => void | Promise<void>;
 }) {
   const { state } = useHospital();
   const [medicineId, setMedicineId] = useState(state.medicines[0]?.id ?? "");
