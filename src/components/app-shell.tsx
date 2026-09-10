@@ -96,7 +96,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="border-t border-sidebar-border px-5 py-4 text-xs text-sidebar-foreground/60">
           <div className="flex items-center gap-2">
             <Building2 className="size-3.5" />
-            Campus · San Francisco
+            Campus · Coimbatore
           </div>
           <div className="mt-1 flex items-center gap-2">
             <Users className="size-3.5" />

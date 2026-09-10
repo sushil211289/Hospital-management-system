@@ -75,7 +75,7 @@ export function printInvoice(patient: Patient, invoice: Invoice) {
       <tr><td><strong>Balance due</strong></td><td class="right"><strong>${formatCurrency(totals.balance)}</strong></td></tr>
       <tr><td>Status</td><td class="right">${invoice.paymentStatus}</td></tr>
     </table>
-    <p class="muted" style="margin-top:32px">This statement is generated from the Meridian HIS billing ledger. Not a legal claim form.</p>`,
+    <p class="muted" style="margin-top:32px">This statement is generated from the Kaveri Medical Center billing ledger.</p>`,
   );
 }
 

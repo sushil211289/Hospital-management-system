@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { STAFF_ACCOUNTS } from "@/lib/auth";
 import { useAuth } from "@/lib/auth-context";
 import { ROLE_LABELS } from "@/lib/permissions";
-import { HOSPITAL_NAME } from "@/lib/seed";
+import { HOSPITAL_NAME } from "@/lib/hospital";
 
 function safeNext(value: string | null) {
   if (value && value.startsWith("/portal") && !value.startsWith("//")) return value;
@@ -62,7 +62,9 @@ export function LoginForm() {
             to authenticated hospital employees. Use your campus credentials.
           </p>
         </div>
-        <p className="text-xs text-slate-500">HIPAA training required · Session expires after 8 hours</p>
+        <p className="text-xs text-slate-500">
+          Kaveri Medical Center · Selvapuram, Coimbatore · Session expires after 8 hours
+        </p>
       </div>
 
       <div className="flex items-center justify-center bg-slate-50 px-4 py-12">

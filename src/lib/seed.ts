@@ -1,6 +1,7 @@
 import type { HospitalState } from "./types";
+import { HOSPITAL_NAME } from "./hospital";
 
-export const HOSPITAL_NAME = "Meridian General Hospital";
+export { HOSPITAL_NAME };
 export const STATE_VERSION = 1;
 
 export const seedState: HospitalState = {
@@ -951,9 +952,9 @@ export const seedState: HospitalState = {
     {
       id: "st-01",
       employeeId: "EMP-2041",
-      name: "Dr. Priya Nair",
+      name: "Dr. Vignesh Arumugam",
       department: "Doctors",
-      title: "Pulmonologist",
+      title: "Consultant Orthopaedic Surgeon",
       email: "p.nair@meridian.hospital",
       hiredAt: "2018-03-12",
       baseSalary: 18500,

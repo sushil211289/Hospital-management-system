@@ -2,19 +2,24 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Activity, Menu, Phone } from "lucide-react";
+import { Bone, Menu, Phone } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { HOSPITAL_EMERGENCY, HOSPITAL_PHONE } from "@/lib/hospital";
-import { HOSPITAL_NAME } from "@/lib/seed";
+import {
+  HOSPITAL_NAME,
+  HOSPITAL_PHONE,
+  HOSPITAL_PHONE_TEL,
+  HOSPITAL_SHORT,
+  HOSPITAL_TAGLINE,
+} from "@/lib/hospital";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
   { href: "/", label: "Home" },
-  { href: "/#services", label: "Care services" },
-  { href: "/physicians", label: "Find a physician" },
-  { href: "/#visitors", label: "Patients & visitors" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#services", label: "Orthopaedics" },
+  { href: "/physicians", label: "Our surgeon" },
+  { href: "/#visit", label: "Location" },
+  { href: "/contact", label: "Book visit" },
 ];
 
 function NavItems({ onClick }: { onClick?: () => void }) {
@@ -44,31 +49,22 @@ export function SiteHeader() {
       <div className="bg-[#0f172a] text-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-2 text-xs sm:px-6">
           <p className="font-medium tracking-wide">
-            Level I Trauma Center · 24/7 Emergency Department
+            {HOSPITAL_SHORT} · Department of Orthopaedics · {HOSPITAL_TAGLINE}
           </p>
-          <p className="flex items-center gap-3">
-            <a href={`tel:${HOSPITAL_EMERGENCY.replace(/\D/g, "")}`} className="hover:underline">
-              Emergency {HOSPITAL_EMERGENCY}
-            </a>
-            <span className="hidden text-white/40 sm:inline">|</span>
-            <a
-              href={`tel:${HOSPITAL_PHONE.replace(/\D/g, "")}`}
-              className="hidden hover:underline sm:inline"
-            >
-              Switchboard {HOSPITAL_PHONE}
-            </a>
-          </p>
+          <a href={`tel:${HOSPITAL_PHONE_TEL}`} className="hover:underline">
+            Book now · {HOSPITAL_PHONE}
+          </a>
         </div>
       </div>
       <div className="border-b bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 sm:px-6">
           <Link href="/" className="flex items-center gap-2">
             <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Activity className="size-5" />
+              <Bone className="size-5" />
             </span>
             <span>
               <span className="block text-[10px] font-semibold tracking-[0.18em] text-primary uppercase">
-                Established 1952
+                {HOSPITAL_SHORT}
               </span>
               <span className="block text-sm font-semibold leading-tight text-slate-900">
                 {HOSPITAL_NAME}
@@ -84,7 +80,7 @@ export function SiteHeader() {
               className={cn(buttonVariants({ size: "sm" }), "hidden sm:inline-flex")}
             >
               <Phone className="size-3.5" />
-              Request an appointment
+              Book appointment
             </Link>
             <Link
               href="/portal"

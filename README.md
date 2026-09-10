@@ -1,6 +1,8 @@
-# Meridian General Hospital
+# Kaveri Medical Center
 
-Public hospital website plus a staff clinical information system for Meridian General Hospital.
+Public hospital website and staff clinical information system for **Kaveri Medical Center** (Department of Orthopaedics), Selvapuram, Coimbatore.
+
+Consultant: **Dr. Vignesh Arumugam, MS (Ortho)**. Appointments: **63801 11273** · kaverimedicalcenter@gmail.com
 
 The homepage is the public site. Staff HIS at `/portal` requires sign-in. Clinical data, users, and appointment requests persist in **PostgreSQL** (Prisma). The portal refreshes from the database every few seconds so inventory, prescriptions, and bills stay in sync.
 

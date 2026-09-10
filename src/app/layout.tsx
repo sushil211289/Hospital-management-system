@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Meridian General Hospital",
+  title: "Kaveri Medical Center | Department of Orthopaedics",
   description:
-    "Official website and staff information system for Meridian General Hospital.",
+    "Kaveri Medical Center, Selvapuram, Coimbatore. Consultant Orthopaedic Surgeon Dr. Vignesh Arumugam, MS (Ortho). Book an appointment: 63801 11273.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
