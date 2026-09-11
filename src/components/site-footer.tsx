@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand-logo";
 import {
   HOSPITAL_ADDRESS,
   HOSPITAL_EMAIL,
@@ -15,7 +16,10 @@ export function SiteFooter() {
     <footer className="mt-auto bg-[#0f172a] text-slate-300">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
-          <p className="text-sm font-semibold text-white">{HOSPITAL_NAME}</p>
+          <div className="flex items-center gap-3">
+            <BrandLogo size={56} className="size-14 rounded-lg" />
+            <p className="text-sm font-semibold text-white">{HOSPITAL_NAME}</p>
+          </div>
           <p className="mt-1 text-xs tracking-wide text-blue-200 uppercase">
             Department of Orthopaedics
           </p>

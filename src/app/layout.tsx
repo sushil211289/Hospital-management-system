@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   title: "Kaveri Medical Center | Department of Orthopaedics",
   description:
     "Kaveri Medical Center, Selvapuram, Coimbatore. Consultant Orthopaedic Surgeon Dr. Vignesh Arumugam, MS (Ortho). Book an appointment: 63801 11273.",
+  icons: {
+    icon: "/kmc-logo.jpg",
+    apple: "/kmc-logo.jpg",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

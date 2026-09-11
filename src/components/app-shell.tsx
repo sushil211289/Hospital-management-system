@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Activity,
   Building2,
   ClipboardList,
   LayoutDashboard,
@@ -13,6 +12,7 @@ import {
   Users,
   Wallet,
 } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 import { SessionBadge } from "@/components/session-badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -80,9 +80,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen bg-background">
       <aside className="hidden w-64 shrink-0 flex-col bg-sidebar text-sidebar-foreground lg:flex">
         <div className="flex items-center gap-3 border-b border-sidebar-border px-5 py-5">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Activity className="size-5" />
-          </div>
+          <BrandLogo size={40} className="size-10 rounded-lg" />
           <div>
             <p className="text-xs uppercase tracking-[0.18em] text-sidebar-foreground/60">
               Clinical HIS
@@ -115,7 +113,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 <Menu className="size-4" />
               </SheetTrigger>
               <SheetContent side="left" className="w-64 bg-sidebar p-0 text-sidebar-foreground">
-                <div className="px-5 py-5 text-sm font-semibold">{HOSPITAL_NAME}</div>
+                <div className="flex items-center gap-3 px-5 py-5">
+                  <BrandLogo size={40} className="size-10 rounded-lg" />
+                  <p className="text-sm font-semibold">{HOSPITAL_NAME}</p>
+                </div>
                 <div className="px-3">
                   <NavLinks />
                 </div>

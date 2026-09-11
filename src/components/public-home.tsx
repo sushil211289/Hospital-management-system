@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Bone, MapPin, Phone } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 import { buttonVariants } from "@/components/ui/button";
 import {
   DEPARTMENT,
@@ -21,6 +22,11 @@ export function PublicHome() {
       <section className="relative overflow-hidden bg-slate-900 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#2563eb_0%,_transparent_45%),linear-gradient(135deg,#0f172a_0%,#1e3a8a_55%,#0f172a_100%)]" />
         <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+          <BrandLogo
+            size={120}
+            priority
+            className="mb-6 size-24 rounded-2xl shadow-lg ring-1 ring-white/40 sm:size-28"
+          />
           <p className="text-xs font-semibold tracking-[0.22em] text-blue-200 uppercase">
             {HOSPITAL_NAME} · {HOSPITAL_TAGLINE}
           </p>

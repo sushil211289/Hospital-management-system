@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Activity } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,10 +44,8 @@ export function LoginForm() {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="hidden flex-col justify-between bg-[#0f172a] p-10 text-white lg:flex">
-        <Link href="/" className="flex items-center gap-2 text-sm font-medium">
-          <span className="flex size-9 items-center justify-center rounded-lg bg-primary">
-            <Activity className="size-5" />
-          </span>
+        <Link href="/" className="flex items-center gap-3 text-sm font-medium">
+          <BrandLogo size={52} className="size-12 rounded-lg" />
           {HOSPITAL_NAME}
         </Link>
         <div>
@@ -70,8 +68,9 @@ export function LoginForm() {
       <div className="flex items-center justify-center bg-slate-50 px-4 py-12">
         <div className="w-full max-w-md space-y-6">
           <div className="lg:hidden">
-            <Link href="/" className="text-sm font-medium text-primary">
-              ← {HOSPITAL_NAME}
+            <Link href="/" className="flex items-center gap-3 text-sm font-medium text-primary">
+              <BrandLogo size={44} className="size-11 rounded-lg ring-1 ring-slate-200" />
+              {HOSPITAL_NAME}
             </Link>
           </div>
           <div>

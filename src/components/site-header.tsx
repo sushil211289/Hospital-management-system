@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bone, Menu, Phone } from "lucide-react";
+import { Menu, Phone } from "lucide-react";
+import { BrandLogo } from "@/components/brand-logo";
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -58,10 +59,8 @@ export function SiteHeader() {
       </div>
       <div className="border-b bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 sm:px-6">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Bone className="size-5" />
-            </span>
+          <Link href="/" className="flex items-center gap-3">
+            <BrandLogo size={52} priority className="size-12 shrink-0 rounded-lg shadow-sm ring-1 ring-slate-200" />
             <span>
               <span className="block text-[10px] font-semibold tracking-[0.18em] text-primary uppercase">
                 {HOSPITAL_SHORT}
@@ -95,7 +94,10 @@ export function SiteHeader() {
                 <Menu className="size-4" />
               </SheetTrigger>
               <SheetContent side="right" className="w-72 p-6">
-                <p className="mb-4 font-semibold">{HOSPITAL_NAME}</p>
+                <div className="mb-4 flex items-center gap-3">
+                  <BrandLogo size={44} className="size-11 rounded-lg ring-1 ring-slate-200" />
+                  <p className="font-semibold">{HOSPITAL_NAME}</p>
+                </div>
                 <div className="flex flex-col gap-3">
                   <NavItems />
                   <Link href="/portal" className="text-sm font-medium text-primary">
