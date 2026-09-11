@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Bone, MapPin, Phone } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -21,62 +20,46 @@ export function PublicHome() {
     <div>
       <section className="relative overflow-hidden bg-slate-900 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#2563eb_0%,_transparent_45%),linear-gradient(135deg,#0f172a_0%,#1e3a8a_55%,#0f172a_100%)]" />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
-          <div>
-            <p className="text-xs font-semibold tracking-[0.22em] text-blue-200 uppercase">
-              {HOSPITAL_NAME} · {HOSPITAL_TAGLINE}
-            </p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-              {DEPARTMENT.en}
-            </h1>
-            <p className="mt-2 text-lg text-blue-100">{DEPARTMENT.ta}</p>
-            <p className="mt-2 text-sm font-medium text-blue-200">
-              {DEPARTMENT.sloganEn}
-            </p>
-            <p className="text-sm text-blue-100/90">{DEPARTMENT.sloganTa}</p>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-200">
-              {FEATURED_PHYSICIAN.quote}. {FEATURED_PHYSICIAN.quoteTa}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/contact" className={cn(buttonVariants({ size: "lg" }))}>
-                Book your appointment today
-              </Link>
-              <Link
-                href="/physicians"
-                className={cn(
-                  buttonVariants({ variant: "outline", size: "lg" }),
-                  "border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white",
-                )}
-              >
-                Meet Dr. Vignesh Arumugam
-              </Link>
-            </div>
-            <p className="mt-6 flex items-center gap-2 text-sm text-blue-100">
-              <Phone className="size-4" />
-              <a href={`tel:${HOSPITAL_PHONE_TEL}`} className="hover:underline">
-                {HOSPITAL_PHONE}
-              </a>
-            </p>
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-24">
+          <p className="text-xs font-semibold tracking-[0.22em] text-blue-200 uppercase">
+            {HOSPITAL_NAME} · {HOSPITAL_TAGLINE}
+          </p>
+          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
+            {DEPARTMENT.name}
+          </h1>
+          <p className="mt-3 text-lg font-medium text-blue-100">{DEPARTMENT.slogan}</p>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-200">
+            {FEATURED_PHYSICIAN.name}, {FEATURED_PHYSICIAN.credentials},{" "}
+            {FEATURED_PHYSICIAN.title}. {FEATURED_PHYSICIAN.quote}.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/contact" className={cn(buttonVariants({ size: "lg" }))}>
+              Book your appointment today
+            </Link>
+            <Link
+              href="/physicians"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white",
+              )}
+            >
+              Meet Dr. Vignesh Arumugam
+            </Link>
           </div>
-          <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/5 shadow-2xl">
-            <Image
-              src={FEATURED_PHYSICIAN.photo}
-              alt="Kaveri Medical Center Department of Orthopaedics flyer featuring Dr. Vignesh Arumugam"
-              width={900}
-              height={1200}
-              className="h-auto w-full object-cover object-top"
-              priority
-            />
-          </div>
+          <p className="mt-6 flex items-center gap-2 text-sm text-blue-100">
+            <Phone className="size-4" />
+            <a href={`tel:${HOSPITAL_PHONE_TEL}`} className="hover:underline">
+              {HOSPITAL_PHONE}
+            </a>
+          </p>
         </div>
       </section>
 
       <section className="border-b bg-white">
         <div className="mx-auto grid max-w-6xl gap-4 px-4 py-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
           {PROMISE_POINTS.map((point) => (
-            <div key={point.en} className="rounded-xl border bg-slate-50 px-4 py-4">
-              <p className="font-semibold text-slate-900">{point.en}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{point.ta}</p>
+            <div key={point} className="rounded-xl border bg-slate-50 px-4 py-4">
+              <p className="font-semibold text-slate-900">{point}</p>
             </div>
           ))}
         </div>
@@ -91,19 +74,11 @@ export function PublicHome() {
             <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">
               {FEATURED_PHYSICIAN.name}
             </h2>
-            <p className="mt-1 text-primary">{FEATURED_PHYSICIAN.nameTa}</p>
             <p className="mt-3 font-medium text-slate-800">
               {FEATURED_PHYSICIAN.credentials} · {FEATURED_PHYSICIAN.title}
             </p>
-            <p className="text-sm text-muted-foreground">
-              {FEATURED_PHYSICIAN.titleTa}
-            </p>
             <blockquote className="mt-5 border-l-4 border-primary pl-4 text-sm leading-relaxed text-slate-700">
               “{FEATURED_PHYSICIAN.quote}”
-              <br />
-              <span className="mt-2 block text-muted-foreground">
-                “{FEATURED_PHYSICIAN.quoteTa}”
-              </span>
             </blockquote>
             <Link href="/physicians" className={cn(buttonVariants(), "mt-6")}>
               Surgeon profile
@@ -129,10 +104,10 @@ export function PublicHome() {
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold tracking-[0.2em] text-primary uppercase">
-              Our orthopaedic services
+              Care we provide
             </p>
             <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">
-              எங்கள் எலும்பியல் சேவைகள்
+              Orthopaedic services
             </h2>
             <p className="mt-2 text-muted-foreground">
               Full-spectrum bone, joint, spine, and sports care for every stage
@@ -145,7 +120,6 @@ export function PublicHome() {
                 <Bone className="size-5 text-primary" />
                 <h3 className="mt-3 font-semibold text-slate-900">{service.title}</h3>
                 <p className="text-sm text-muted-foreground">{service.detail}</p>
-                <p className="mt-2 text-sm text-slate-600">{service.titleTa}</p>
               </div>
             ))}
           </div>
@@ -168,7 +142,7 @@ export function PublicHome() {
             </a>
           </p>
           <Link href="/contact" className={cn(buttonVariants(), "mt-6")}>
-            இன்றே உங்கள் நேரம் பதிவு செய்யுங்கள்
+            Book an appointment
           </Link>
         </div>
       </section>

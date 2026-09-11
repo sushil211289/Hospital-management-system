@@ -26,7 +26,7 @@ export function ContactPage() {
           Book your appointment today
         </p>
         <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">
-          இன்றே உங்கள் நேரம் பதிவு செய்யுங்கள்
+          Request an appointment
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
           Request a visit with {FEATURED_PHYSICIAN.name}, {FEATURED_PHYSICIAN.credentials},
