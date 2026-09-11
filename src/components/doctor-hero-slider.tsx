@@ -1,9 +1,6 @@
-"use client";
-
-import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import { BrandLogo } from "@/components/brand-logo";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -15,36 +12,13 @@ import {
 } from "@/lib/hospital";
 import { cn } from "@/lib/utils";
 
+const MARQUEE_DOCTORS = [...PHYSICIANS, ...PHYSICIANS];
+
 export function DoctorHeroSlider() {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const count = PHYSICIANS.length;
-
-  const [touchX, setTouchX] = useState<number | null>(null);
-
-  const go = useCallback(
-    (next: number) => {
-      setIndex(((next % count) + count) % count);
-    },
-    [count],
-  );
-
-  useEffect(() => {
-    if (paused) return;
-    const timer = window.setInterval(() => go(index + 1), 7000);
-    return () => window.clearInterval(timer);
-  }, [go, index, paused]);
-
   return (
-    <section
-      className="relative overflow-hidden bg-slate-900 text-white"
-      aria-roledescription="carousel"
-      aria-label="Doctors at Kaveri Medical Center"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <section className="relative overflow-hidden bg-slate-900 text-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_#2563eb_0%,_transparent_45%),linear-gradient(135deg,#0f172a_0%,#1e3a8a_55%,#0f172a_100%)]" />
-      <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
+      <div className="relative mx-auto max-w-6xl px-4 pt-12 sm:px-6 lg:pt-16">
         <BrandLogo
           size={96}
           priority
@@ -53,59 +27,50 @@ export function DoctorHeroSlider() {
         <p className="text-xs font-semibold tracking-[0.22em] text-blue-200 uppercase">
           {HOSPITAL_NAME} · {HOSPITAL_TAGLINE}
         </p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">Our doctors</h1>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-200 sm:text-base">
+          Consultants in orthopaedics, general medicine, family care, women&apos;s
+          health, and nutrition.
+        </p>
+      </div>
 
-        <div
-          className="mt-6 overflow-hidden"
-          onTouchStart={(event) => setTouchX(event.touches[0]?.clientX ?? null)}
-          onTouchEnd={(event) => {
-            if (touchX == null) return;
-            const delta = (event.changedTouches[0]?.clientX ?? touchX) - touchX;
-            if (delta > 50) go(index - 1);
-            if (delta < -50) go(index + 1);
-            setTouchX(null);
-          }}
-        >
-          <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${index * 100}%)` }}
-          >
-            {PHYSICIANS.map((doctor, i) => (
+      <div
+        className="doctor-marquee relative mt-8"
+        aria-label="Scrolling list of doctors"
+      >
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-slate-900 to-transparent sm:w-24" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-slate-900 to-transparent sm:w-24" />
+        <div className="overflow-hidden">
+          <div className="doctor-marquee-track flex gap-5 pe-5">
+            {MARQUEE_DOCTORS.map((doctor, i) => (
               <article
-                key={doctor.id}
-                className="min-w-full"
-                aria-hidden={i !== index}
-                aria-label={`${i + 1} of ${count}`}
+                key={`${doctor.id}-${i}`}
+                className="w-[260px] shrink-0 overflow-hidden rounded-2xl bg-white/10 shadow-xl ring-1 ring-white/15 sm:w-[300px]"
+                aria-hidden={i >= PHYSICIANS.length}
               >
-                <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,320px)_1fr]">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white/10 shadow-2xl ring-1 ring-white/20">
-                    <Image
-                      src={doctor.photo}
-                      alt={doctor.name}
-                      fill
-                      priority={i === 0}
-                      sizes="(min-width: 1024px) 320px, 90vw"
-                      className="object-cover object-top"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-blue-200">Our doctors</p>
-                    <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-5xl">
-                      {doctor.name}
-                    </h1>
-                    <p className="mt-3 text-lg font-medium text-blue-100">
-                      {doctor.credentials}
-                    </p>
-                    <p className="mt-2 max-w-xl text-base leading-relaxed text-slate-200">
-                      {doctor.title}
-                    </p>
-                  </div>
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={doctor.photo}
+                    alt={i >= PHYSICIANS.length ? "" : doctor.name}
+                    fill
+                    sizes="300px"
+                    className="object-cover object-top"
+                    priority={i < 2}
+                  />
+                </div>
+                <div className="p-4">
+                  <h2 className="text-lg font-semibold tracking-tight">{doctor.name}</h2>
+                  <p className="mt-1 text-sm font-medium text-blue-100">{doctor.credentials}</p>
+                  <p className="mt-1 text-sm text-slate-200">{doctor.title}</p>
                 </div>
               </article>
             ))}
           </div>
         </div>
+      </div>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+      <div className="relative mx-auto max-w-6xl px-4 py-10 sm:px-6">
+        <div className="flex flex-wrap items-center gap-3">
           <Link href="/contact" className={cn(buttonVariants({ size: "lg" }))}>
             Book your appointment today
           </Link>
@@ -125,41 +90,6 @@ export function DoctorHeroSlider() {
             {HOSPITAL_PHONE}
           </a>
         </p>
-
-        <div className="mt-8 flex items-center gap-3">
-          <button
-            type="button"
-            className="inline-flex size-10 items-center justify-center rounded-full border border-white/30 bg-white/10 hover:bg-white/20"
-            aria-label="Previous doctor"
-            onClick={() => go(index - 1)}
-          >
-            <ChevronLeft className="size-5" />
-          </button>
-          <div className="flex gap-2" role="tablist" aria-label="Choose a doctor">
-            {PHYSICIANS.map((doctor, i) => (
-              <button
-                key={doctor.id}
-                type="button"
-                role="tab"
-                aria-selected={i === index}
-                aria-label={doctor.name}
-                className={cn(
-                  "h-2.5 rounded-full transition-all",
-                  i === index ? "w-8 bg-white" : "w-2.5 bg-white/40 hover:bg-white/70",
-                )}
-                onClick={() => go(i)}
-              />
-            ))}
-          </div>
-          <button
-            type="button"
-            className="inline-flex size-10 items-center justify-center rounded-full border border-white/30 bg-white/10 hover:bg-white/20"
-            aria-label="Next doctor"
-            onClick={() => go(index + 1)}
-          >
-            <ChevronRight className="size-5" />
-          </button>
-        </div>
       </div>
     </section>
   );

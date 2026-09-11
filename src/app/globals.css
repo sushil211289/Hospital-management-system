@@ -128,3 +128,28 @@
     @apply font-sans;
   }
 }
+
+@keyframes doctor-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.doctor-marquee-track {
+  animation: doctor-marquee 32s linear infinite;
+  width: max-content;
+}
+
+.doctor-marquee:hover .doctor-marquee-track,
+.doctor-marquee:focus-within .doctor-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .doctor-marquee-track {
+    animation: none;
+  }
+}
