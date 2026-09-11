@@ -11,10 +11,47 @@ export const HOSPITAL_WEBSITE = "https://www.kaverimedicalcenter.com";
 export const HOSPITAL_WEBSITE_LABEL = "www.kaverimedicalcenter.com";
 export const HOSPITAL_CITY = "Coimbatore";
 
+export type Physician = {
+  id: string;
+  name: string;
+  credentials: string;
+  title: string;
+  photo: string;
+};
+
+export const PHYSICIANS: Physician[] = [
+  {
+    id: "vignesh",
+    name: "Dr. Vignesh Arumugam",
+    credentials: "MS (Ortho)",
+    title: "Consultant Orthopaedic Surgeon",
+    photo: "/doctors/vignesh.jpg",
+  },
+  {
+    id: "sumathi",
+    name: "Dr. Sumathi",
+    credentials: "B.Sc., M.B.B.S.",
+    title: "General Medicine & Family Medicine",
+    photo: "/doctors/sumathi.jpg",
+  },
+  {
+    id: "valli",
+    name: "Dr. Valli Devi",
+    credentials: "M.B.B.S., Dip. Nutrition and Dietetics",
+    title: "Women's Health & Nutritional Medicine",
+    photo: "/doctors/valli.jpg",
+  },
+  {
+    id: "narendiran",
+    name: "Dr. Narendiran",
+    credentials: "MD (UKR)",
+    title: "General Medicine",
+    photo: "/doctors/narendiren.jpg",
+  },
+];
+
 export const FEATURED_PHYSICIAN = {
-  name: "Dr. Vignesh Arumugam",
-  credentials: "MS (Ortho)",
-  title: "Consultant Orthopaedic Surgeon",
+  ...PHYSICIANS[0],
   quote: "Expert care for healthy movement at every stage of life",
   email: HOSPITAL_EMAIL,
 };

@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  FEATURED_PHYSICIAN,
   HOSPITAL_ADDRESS,
   HOSPITAL_EMAIL,
   HOSPITAL_PHONE,
@@ -29,9 +28,9 @@ export function ContactPage() {
           Request an appointment
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Request a visit with {FEATURED_PHYSICIAN.name}, {FEATURED_PHYSICIAN.credentials},
-          Consultant Orthopaedic Surgeon. For severe injury or an emergency,
-          call {HOSPITAL_PHONE} immediately.
+          Request a visit with our consultants for general medicine, family care,
+          orthopaedics, women&apos;s health, or nutrition. For severe injury or an
+          emergency, call {HOSPITAL_PHONE} immediately.
         </p>
         <dl className="mt-8 space-y-3 text-sm">
           <div>

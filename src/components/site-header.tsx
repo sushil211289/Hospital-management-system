@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 const LINKS = [
   { href: "/", label: "Home" },
   { href: "/#services", label: "Orthopaedics" },
-  { href: "/physicians", label: "Our surgeon" },
+  { href: "/physicians", label: "Our doctors" },
   { href: "/#visit", label: "Location" },
   { href: "/contact", label: "Book visit" },
 ];

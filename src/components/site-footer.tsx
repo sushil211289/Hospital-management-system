@@ -54,7 +54,7 @@ export function SiteFooter() {
           <ul className="mt-3 space-y-2 text-sm">
             <li>
               <Link href="/physicians" className="hover:text-white">
-                Dr. Vignesh Arumugam
+                Our doctors
               </Link>
             </li>
             <li>
