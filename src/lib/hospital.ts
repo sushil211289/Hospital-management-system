@@ -36,7 +36,7 @@ export const PHYSICIANS: Physician[] = [
   },
   {
     id: "valli",
-    name: "Dr. Valli Devi",
+    name: "Dr. Valli",
     credentials: "M.B.B.S., Dip. Nutrition and Dietetics",
     title: "Women's Health & Nutritional Medicine",
     photo: "/doctors/valli.jpg",
